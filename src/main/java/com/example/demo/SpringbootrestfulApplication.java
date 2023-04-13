@@ -11,6 +11,6 @@ public class SpringbootrestfulApplication {
 		Estudiante est = new Estudiante();
 		est.setNombre("Alejandro");
 		est.setApellido("Cabezas");
-		System.out.println(est.getNombre()+" "+est.getApellido());
+		System.out.println(est.getNombre() + " " + est.getApellido());
 	}
 }
