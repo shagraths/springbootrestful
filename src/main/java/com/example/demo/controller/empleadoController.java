@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Empleado;
 import com.example.demo.service.EmpleadoService;
+
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/empleado")
@@ -49,7 +52,15 @@ public class empleadoController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable("id") long empleadoId,
 			@RequestBody Empleado empleado) {
-		return new ResponseEntity<Empleado>(empleadoService.actualizarEmpleadoPorId(empleado,empleadoId), HttpStatus.OK);
+		return new ResponseEntity<Empleado>(empleadoService.actualizarEmpleadoPorId(empleado, empleadoId),
+				HttpStatus.OK);
 	}
 
+	// construir eliminar empleado rest api
+	// http://localhost:8080/api/empleado/1
+	@DeleteMapping("{id}")
+	public ResponseEntity<String> eliminarEmpleado(@PathVariable("id") long empleadoId) {
+		empleadoService.eliminarEmpleado(empleadoId);
+		return new ResponseEntity<String>("Empleado eliminado correctamente!", HttpStatus.OK);
+	}
 }

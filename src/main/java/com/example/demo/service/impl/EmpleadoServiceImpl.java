@@ -44,13 +44,22 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	@Override
 	public Empleado actualizarEmpleadoPorId(Empleado empleado, long id) {
 		// necesitamos saber si existe el empleado en la base de datos
-		Empleado existeEmpleado = empleadoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Empleado", "id", id)); 
-		
+		Empleado existeEmpleado = empleadoRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Empleado", "id", id));
+
 		existeEmpleado.setNombres(empleado.getNombres());
 		existeEmpleado.setApellidos(empleado.getApellidos());
 		existeEmpleado.setEmail(empleado.getEmail());
-		//guardamos el empleado con los datos actualizados
+		// guardamos el empleado con los datos actualizados
 		empleadoRepository.save(existeEmpleado);
 		return existeEmpleado;
+	}
+
+	@Override
+	public void eliminarEmpleado(long id) {
+		// necesitamos saber si existe el empleado antes de eliminarlo
+		Empleado existeEmpleado = empleadoRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Empleado", "id", id));
+		empleadoRepository.deleteById(id);
 	}
 }
